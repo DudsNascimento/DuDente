@@ -1,0 +1,48 @@
+Pontos de Funcao
+
+Introducao.
+
+Criado pelo analista Alan Albrecht em 1979. Pontos de Funcao é uma das métrica mais utilizadas e confiaveis no mercado para analise de tempo e custo de desenvolvimento de um software, em que, a partir de unidades de medicao denominadas "Pontos de Funcao", pode-se determinar precisamente a quantidade de trabalho necessário para que o software seja construido e entregue ao cliente.
+
+---------------------------------------------------------
+
+Vantagens
+
+Independente da linguagem de programacao utilizada.
+Incluir analise de pontos de funcao ao ciclo de desenvolvimento de um software tem um custo muito baixo por sua facilidade.
+Pode ser calculado a partir dos casos de uso do software a ser medido.
+Funciona muito bem com o conceito de estórias do XP.
+
+Desvantagens
+
+São medidos a partir do ponto de vista do usuario, ou seja, pelo que o usuario requisitou, e nao o que realmente sera entregue a ele.
+
+---------------------------------------------------------
+
+Método:
+
+Os pontos de função do software são calculados pela analise dos requerimentos funcionais, que podem ser classificados em 5 tipos, a partir do tipo de requerimento funcional, os pontos são designados pela complexidade da função, que pode ser alta, média ou baixa.
+
+---------------------------------------------------------
+
+Tipos de Requerimentos Funcionais para calculo dos Pontos de Funcao.
+
+Arquivo Externo:
+
+Representam dados que são acessados e manipulados pelo software para realizar alguma tarefa mas que não são mantidos pelo mesmo.
+
+Arquivo Interno:
+
+Representam dados que são acessados e manipulados pelo software para realizar alguma tarefa e que são mantidos pelo mesmo.
+
+Entrada:
+
+São funções que recebem dados de entrada do usuario e realizam algum processo de manipulação nos arquivos externos ou internos do software.
+
+Saida:
+
+São funções que geram dados derivados dos obtidos pelo acesso aos arquivos externos ou internos do software. Estes dados derivados servem para gerar arquivos de saida com informações ao usuario.
+
+Requisicao:
+
+Sâo semelhantes aos dados de saída, entretanto, o arquivo de saída é gerado a partir de dados requeridos diretamento dos arquivos externos e internos do software, sem que nenhum processamento seja realizado.
