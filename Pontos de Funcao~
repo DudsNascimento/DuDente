@@ -46,5 +46,3 @@ São funções que geram dados derivados dos obtidos pelo acesso aos arquivos ex
 Requisicao:
 
 Sâo semelhantes aos dados de saída, entretanto, o arquivo de saída é gerado a partir de dados requeridos diretamento dos arquivos externos e internos do software, sem que nenhum processamento seja realizado.
-
-http://alvinalexander.com/FunctionPoints/
