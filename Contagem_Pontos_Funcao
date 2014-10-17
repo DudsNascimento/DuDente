@@ -1,0 +1,87 @@
+Arquivos Logicos Internos
+
+ALI1 id_Paciente (1 RET + 3 DET)
+
+	RET
+	Nome		: DET
+	Idade		: DET
+	id_Plano	: DET
+
+ALI2 id_Dentista (1 RET + 3 DET)
+
+	RET
+	Especializacao	: DET
+	Nome		: DET
+	Salario		: DET
+
+ALI3 id_Secretaria (1 RET + 3 DET)
+
+	RET
+	Bonificacao	: DET
+	Nome		: DET
+	Salario		: DET
+
+ALI4 id_Procedimento (1RET + 3 DET)
+
+	RET
+	Data		: DET
+	Descricao	: DET
+	Observacao	: DET
+
+ALI5 id_Medicamento (1 RET + 4 DET)
+
+	RET
+	Nome		: DET
+	Validade	: DET
+	Data		: DET
+	Valor		: DET
+
+ALI6 id_Aparelho (1 RET + 4 DET)
+
+	RET
+	Nome		: DET
+	Data_Manutencao	: DET
+	Data		: DET
+	Valor		: DET
+
+----------------------------------
+
+Arquivos Logicos Externos (1 RET + 2 DET)
+
+ALE1 id_Plano
+
+	RET
+	Nome 		: DET
+	Validade 	: DET
+	
+
+----------------------------------
+
+Funcoes de Entrada
+
+FE1 Cadastrar_Paciente() 		-> Referencia id_Paciente (1 RET + 3 DET)
+FE2 Cadastrar_Dentista() 		-> Referencia id_Dentista (1 RET + 3 DET)
+FE3 Marcar_Procedimento() 		-> Referencia id_Procedimento + id_Dentista + id_Paciente (3 RET + 9 DET)
+FE4 Registrar_Medicamento_Receitado() 	-> Referencia id_Medicamento + id_Dentista + id_Paciente (3 RET + 10 DET)
+FE5 Registrar_Manutencao_Aparelho()	-> Referencia id_Aparelho (1 RET + 4 DET)
+FE6 Registrar_Compra_Medicamento()	-> Referencia id_Medicamento (1 RET + 4 DET)
+
+----------------------------------
+
+Funcoes de Saida
+
+FS1 Gerar_Relatorio_Despesas()	-> Referencia id_Medicamento + id_Aparelho (2 RET + 8 DET)
+FS2 Gerar_Relatorio_Ganhos()	-> Referencia id_Procedimento (1 RET + 3 DET)
+
+----------------------------------
+
+Funcoes de Requisicao
+
+FR1 Listar_Dentistas()			-> Referencia id_Dentista (1 RET + 3 DET)
+FR2 Listar_Pacientes()			-> Referencia id_Paciente (1 RET + 3 DET)
+FR3 Listar_Secretarias()		-> Referencia id_Secretaria (1 RET + 3 DET)
+FR4 Listar_Medicamentos()		-> Referencia id_Medicamento (1 RET + 4 DET)
+FR5 Listar_Aparelhos()			-> Referencia id_Aparelho (1 RET + 4 DET)
+FR6 Listar_Procedimentos_Realizados()	-> Referencia id_Procedimento (1 RET + 3 DET)
+
+----------------------------------
