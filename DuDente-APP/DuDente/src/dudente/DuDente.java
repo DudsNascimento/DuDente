@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,8 +26,37 @@ import javax.swing.KeyStroke;
  */
 public class DuDente extends JFrame {
 
+    private JPanel janelaPrincipal;
+    private GestaoDentistas gestaoDentistas;
+    private GestaoSecretarias gestaoSecretarias;
+    private GestaoPacientes gestaoPacientes;
+    
+    public void AbrirJanelaGestaoDentistas(){
+
+        gestaoDentistas.setVisible(true);
+        gestaoSecretarias.setVisible(false);
+        gestaoPacientes.setVisible(false);
+    }
+    
+    public void AbrirJanelaGestaoSecretarias(){
+
+        gestaoDentistas.setVisible(false);
+        gestaoSecretarias.setVisible(true);
+        gestaoPacientes.setVisible(false);
+    }
+
+    public void AbrirJanelaGestaoPacientes(){
+
+        gestaoDentistas.setVisible(false);
+        gestaoSecretarias.setVisible(false);
+        gestaoPacientes.setVisible(true);
+    }
+    
     public DuDente() {
         
+    janelaPrincipal = new JPanel();
+    add(janelaPrincipal);
+
     JMenuBar menu = new JMenuBar();
     
     JMenu menuArquivo = new JMenu("Arquivo");
@@ -60,17 +90,40 @@ public class DuDente extends JFrame {
             System.exit(0);
         }
     });
-
-    JPanel pane = (JPanel) getContentPane();
-    GroupLayout gl = new GroupLayout(pane);
-    pane.setLayout(gl);
     
-    gl.setAutoCreateContainerGaps(true);
-    gl.setHorizontalGroup(gl.createSequentialGroup());
-    gl.setVerticalGroup(gl.createSequentialGroup());
+    itemMenuGestaoDentistas.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent event) {
+            AbrirJanelaGestaoDentistas();
+        }
+    });
+    
+    itemMenuGestaoSecretarias.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent event) {
+            AbrirJanelaGestaoSecretarias();
+        }
+    });
+    
+    itemMenuGestaoPacientes.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent event) {
+            AbrirJanelaGestaoPacientes();
+        }
+    });
 
-    pack();
-
+    gestaoDentistas = new GestaoDentistas();
+    gestaoDentistas.setVisible(false);
+    janelaPrincipal.add(gestaoDentistas);
+    
+    gestaoSecretarias = new GestaoSecretarias();
+    gestaoSecretarias.setVisible(false);
+    janelaPrincipal.add(gestaoSecretarias);
+    
+    gestaoPacientes = new GestaoPacientes();
+    gestaoPacientes.setVisible(false);
+    janelaPrincipal.add(gestaoPacientes);
+    
     setTitle("DuDente - Sistema Integrado de Gestão de Clínicas Odontológicas");
     setJMenuBar(menu);
     setSize(800, 600);
