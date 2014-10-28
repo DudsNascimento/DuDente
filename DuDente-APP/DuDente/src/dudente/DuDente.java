@@ -4,6 +4,7 @@
  */
 package dudente;
 
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -19,6 +20,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
+import javax.swing.Box;
 
 /**
  *
@@ -55,6 +57,8 @@ public class DuDente extends JFrame {
     public DuDente() {
         
     janelaPrincipal = new JPanel();
+    janelaPrincipal.setLayout(new BoxLayout(janelaPrincipal, BoxLayout.X_AXIS));
+    janelaPrincipal.add(Box.createHorizontalGlue());
     add(janelaPrincipal);
 
     JMenuBar menu = new JMenuBar();
@@ -126,7 +130,7 @@ public class DuDente extends JFrame {
     
     setTitle("DuDente - Sistema Integrado de Gestão de Clínicas Odontológicas");
     setJMenuBar(menu);
-    setSize(800, 600);
+    setSize(500, 400);
     setLocationRelativeTo(null);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
