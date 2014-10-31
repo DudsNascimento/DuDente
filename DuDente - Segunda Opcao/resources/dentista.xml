@@ -1,0 +1,123 @@
+<funcionario>
+
+	<dentista>
+		<nome>Breno Barros Pinto</nome>
+		<ocupacao>Radiologia</ocupacao>
+		<salario>R$1,200</salario>
+	</dentista>
+	
+	<dentista>
+		<nome>Julian Dias Cavalcanti</nome>
+		<ocupacao>Dentística</ocupacao>
+		<salario>R$1,300</salario>
+	</dentista>
+	
+	<dentista>
+		<nome>Lara Souza Dias</nome>
+		<ocupacao>Endodontia</ocupacao>
+		<salario>R$1,400</salario>
+	</dentista>
+	
+	<dentista>
+		<nome>Kaua Oliveira Santos</nome>
+		<ocupacao>Periodontia</ocupacao>
+		<salario>R$1,400</salario>
+	</dentista>
+	
+	<dentista>
+		<nome>Igor Cunha Pereira</nome>
+		<ocupacao>Cirurgia Bucomaxilofacial</ocupacao>
+		<salario>R$1,500</salario>
+	</dentista>
+	
+	<dentista>
+		<nome>Alex Sousa Dias</nome>
+		<ocupacao>Próteses</ocupacao>
+		<salario>R$1,250</salario>
+	</dentista>
+	
+	<dentista>
+		<nome>Agatha Alves Cardoso</nome>
+		<ocupacao>Odontopediatria</ocupacao>
+		<salario>R$1,250</salario>
+	</dentista>
+	
+	<dentista>
+		<nome>Davi Cavalcanti Correia</nome>
+		<ocupacao>Ortodontia </ocupacao>
+		<salario>R$1,300</salario>
+	</dentista>
+	
+	<dentista>
+		<nome>Eduarda Alves Silva</nome>
+		<ocupacao>Periodontia</ocupacao>
+		<salario>R$1,300</salario>
+	</dentista>
+	
+	<dentista>
+		<nome>Melissa Ferreira Pinto</nome>
+		<ocupacao>Dentística</ocupacao>
+		<salario>R$1,200</salario>
+	</dentista>
+	
+	<dentista>
+		<nome>Mariana Ribeiro Ferreira</nome>
+		<ocupacao>Radiologia</ocupacao>
+		<salario>R$1,300</salario>
+	</dentista>
+	
+	<dentista>
+		<nome>Manuela Rocha Azevedo</nome>
+		<ocupacao>Endodontia</ocupacao>
+		<salario>R$1,200</salario>
+	</dentista>
+	
+	<dentista>
+		<nome>Luiz Almeida Oliveira</nome>
+		<ocupacao>Ortodontia</ocupacao>
+		<salario>R$1,400</salario>
+	</dentista>
+	
+	<dentista>
+		<nome>Alex Pinto Cunha</nome>
+		<ocupacao>Dentística</ocupacao>
+		<salario>R$1,250</salario>
+	</dentista>
+	
+	<dentista>
+		<nome>Breno Santos Barbosa</nome>
+		<ocupacao>Cirurgia Bucomaxilofacial</ocupacao>
+		<salario>R$1,450</salario>
+	</dentista>
+	
+	<dentista>
+		<nome>Lucas Ribeiro Goncalves</nome>
+		<ocupacao>Endodontia</ocupacao>
+		<salario>R$1,400</salario>
+	</dentista>
+	
+	<dentista>
+		<nome>Carla Gomes Carvalho</nome>
+		<ocupacao>Radiologia</ocupacao>
+		<salario>R$1,250</salario>
+	</dentista>
+	
+	<dentista>
+		<nome>Julia Almeida Pinto</nome>
+		<ocupacao>Próteses</ocupacao>
+		<salario>R$1,250</salario>
+	</dentista>
+	
+	<dentista>
+		<nome>Maria Alves Lima</nome>
+		<ocupacao>Ortodontia </ocupacao>
+		<salario>R$1,300</salario>
+	</dentista>
+	
+	<dentista>
+		<nome>Mateus Carvalho Pinto</nome>
+		<ocupacao>Odontopediatria</ocupacao>
+		<salario>R$1,200</salario>
+	</dentista>
+
+</funcionario>

@@ -1,0 +1,29 @@
+<funcionario>
+
+	<empregado>
+		<nome>Luis Sousa Martins</nome>
+		<ocupacao>Contador</ocupacao>
+		<salario>R$1,700</salario>
+	</empregado>
+	
+	<empregado>
+		<nome>Emilly Correia Dias</nome>
+		<ocupacao>Secretaria</ocupacao>
+		<salario>R$950</salario>
+	</empregado>
+	
+	<empregado>
+		<nome>Manoel Araujo Almeida</nome>
+		<ocupacao>Limpeza</ocupacao>
+		<salario>R$600</salario>
+	</empregado>
+	
+	<empregado>
+		<nome>Raissa Costa Almeida</nome>
+		<ocupacao>Limpeza</ocupacao>
+		<salario>R$600</salario>
+	</empregado>
+	
+</funcionario>
+	
+	
