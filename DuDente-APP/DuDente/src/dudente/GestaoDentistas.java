@@ -4,16 +4,32 @@
  */
 package dudente;
 
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.InputMethodEvent;
 import java.awt.event.KeyEvent;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
+import java.awt.event.FocusListener;
+import java.awt.event.InputMethodListener;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -30,6 +46,7 @@ import javax.swing.JTextArea;
 import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import javax.swing.JDialog;
 import javax.swing.Box;
 import javax.swing.KeyStroke;
 import javax.swing.BorderFactory;
@@ -41,6 +58,8 @@ import javax.swing.text.MaskFormatter;
  * @author duds
  */
 public class GestaoDentistas extends JPanel{
+    
+    private ArrayList <String> dentistas;
     
     private MaskFormatter salarioMaskFormat;
     
@@ -56,6 +75,205 @@ public class GestaoDentistas extends JPanel{
     private JFormattedTextField salarioDentistaInputRemocao;
     private JTextField especializacaoDentistaInputRemocao;
     
+    JPanel panelAtualizarLinha4;
+    JPanel panelRemoverLinha4;
+    
+    JTable tableDentistasAtualizacao;
+    JTable tableDentistasRemocao;
+
+    public void AtualizarListaDentistas(){
+        
+        String nomeColunasDentistas[] = {"Nome", "Salário", "Especialização"};
+        
+        if(dentistas.size() > 0)
+        {
+            String[][] listaDentistas = new String[dentistas.size()/3][3];
+            for(int count = 0; count < dentistas.size()/3; count++)
+            {
+                for(int count2 = 0; count2 < 3; count2++)
+                {
+                    listaDentistas[count][count2] = dentistas.get((count*3)+count2);
+                }
+            }
+            
+            tableDentistasAtualizacao = new JTable(listaDentistas, nomeColunasDentistas);
+
+            JScrollPane listDentistasAtualizarScroll = new JScrollPane(tableDentistasAtualizacao);
+            listDentistasAtualizarScroll.setPreferredSize(new Dimension(250, 80));
+            
+            panelAtualizarLinha4.removeAll();
+            panelAtualizarLinha4.add(listDentistasAtualizarScroll);
+            
+            panelAtualizarLinha4.setVisible(true);
+            panelAtualizarLinha4.updateUI();
+            
+            tableDentistasAtualizacao.addMouseListener(new MouseListener() {
+
+                @Override
+                public void mouseClicked(MouseEvent me) {
+                    PreencherInputsAtualizacao();
+                }
+
+                @Override
+                public void mousePressed(MouseEvent me) {
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent me) {
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent me) {
+                }
+
+                @Override
+                public void mouseExited(MouseEvent me) {
+                }
+            });
+            
+            tableDentistasAtualizacao.addKeyListener(new KeyListener() {
+
+                @Override
+                public void keyTyped(KeyEvent ke) {
+                    PreencherInputsAtualizacao();
+                }
+
+                @Override
+                public void keyPressed(KeyEvent ke) {
+                    PreencherInputsAtualizacao();
+                }
+
+                @Override
+                public void keyReleased(KeyEvent ke) {
+                    PreencherInputsAtualizacao();
+                }
+            });
+            
+            tableDentistasAtualizacao.addFocusListener(new FocusListener() {
+                @Override
+                public void focusGained(FocusEvent fe) {
+                    PreencherInputsAtualizacao();
+                }
+
+                @Override
+                public void focusLost(FocusEvent fe) {
+                }
+            });
+
+            tableDentistasRemocao = new JTable(listaDentistas, nomeColunasDentistas);
+
+            JScrollPane listDentistasRemoverScroll = new JScrollPane(tableDentistasRemocao);
+            listDentistasRemoverScroll.setPreferredSize(new Dimension(250, 80));
+                        
+            panelRemoverLinha4.removeAll();
+            panelRemoverLinha4.add(listDentistasRemoverScroll);
+            
+            panelRemoverLinha4.setVisible(true);
+            panelRemoverLinha4.updateUI();
+        }
+        else
+        {
+            panelAtualizarLinha4.setVisible(false);
+            panelRemoverLinha4.setVisible(false);
+        }
+    }
+
+    public void GerarRelatorioPadrao() throws IOException{
+        
+        FileWriter fileRelatorioDentistas = new FileWriter("relatorio_dentistas");
+        BufferedWriter bufferFileRelatorioDentistas = new BufferedWriter(fileRelatorioDentistas);
+        
+        bufferFileRelatorioDentistas.write("***********************\n");
+        bufferFileRelatorioDentistas.write("Relatorio de dentistas.\n");
+        bufferFileRelatorioDentistas.write("***********************\n\n");
+        
+        for(int count = 0; count < dentistas.size()/3; count++)
+        {
+            bufferFileRelatorioDentistas.write("Nome: "+dentistas.get((count*3)+0)+"\n");
+            bufferFileRelatorioDentistas.write("Salario: "+dentistas.get((count*3)+1)+"\n");
+            bufferFileRelatorioDentistas.write("Especialização: "+dentistas.get((count*3)+2)+"\n\n");
+        }
+        
+        bufferFileRelatorioDentistas.close();
+        fileRelatorioDentistas.close();
+    }
+    
+    public void AdicionarDentista(){
+
+        if(nomeDentistaInputCadastro.getText().length() > 0 && especializacaoDentistaInputCadastro.getText().length() > 0 &&
+           salarioDentistaInputCadastro.isEditValid())
+        {
+            dentistas.add(nomeDentistaInputCadastro.getText());
+            dentistas.add(salarioDentistaInputCadastro.getText());
+            dentistas.add(especializacaoDentistaInputCadastro.getText());
+            
+            nomeDentistaInputCadastro.setText("");
+            salarioDentistaInputCadastro.setText("R$     ,  ");
+            salarioDentistaInputCadastro.validate();
+            especializacaoDentistaInputCadastro.setText("");
+        }
+        
+        AtualizarListaDentistas();
+    }
+    
+    public void AtualizarDentista(){
+
+        if(nomeDentistaInputAtualizacao.getText().length() > 0 && especializacaoDentistaInputAtualizacao.getText().length() > 0 &&
+           salarioDentistaInputAtualizacao.isEditValid() &&
+           tableDentistasAtualizacao.getSelectedRow() >= 0 && tableDentistasAtualizacao.getSelectedRow() < dentistas.size()/3)
+        {
+            dentistas.set((tableDentistasAtualizacao.getSelectedRow()*3)+0, nomeDentistaInputAtualizacao.getText());
+            dentistas.set((tableDentistasAtualizacao.getSelectedRow()*3)+1, salarioDentistaInputAtualizacao.getText());
+            dentistas.set((tableDentistasAtualizacao.getSelectedRow()*3)+2, especializacaoDentistaInputAtualizacao.getText());
+            
+            nomeDentistaInputAtualizacao.setText("");
+            salarioDentistaInputAtualizacao.setText("R$     ,  ");
+            salarioDentistaInputAtualizacao.validate();
+            especializacaoDentistaInputAtualizacao.setText("");
+        }
+        
+        AtualizarListaDentistas();
+    }
+    
+    public void RemoverDentista(){
+        
+        if(tableDentistasRemocao.getSelectedRow() >= 0 && tableDentistasRemocao.getSelectedRow() < dentistas.size()/3)
+        {
+            dentistas.remove((tableDentistasRemocao.getSelectedRow()*3)+0);
+            dentistas.remove((tableDentistasRemocao.getSelectedRow()*3)+0);
+            dentistas.remove((tableDentistasRemocao.getSelectedRow()*3)+0);
+        }
+        
+        AtualizarListaDentistas();
+        PreencherInputsAtualizacao();
+    }
+    
+    public void PreencherInputsAtualizacao()
+    {
+        if(tableDentistasAtualizacao.getSelectedRow() >= 0 && tableDentistasAtualizacao.getSelectedRow() < dentistas.size()/3)
+        {
+            nomeDentistaInputAtualizacao.setEnabled(true);
+            salarioDentistaInputAtualizacao.setEnabled(true);
+            especializacaoDentistaInputAtualizacao.setEnabled(true);
+                    
+            nomeDentistaInputAtualizacao.setText(dentistas.get((tableDentistasAtualizacao.getSelectedRow()*3)+0));
+            salarioDentistaInputAtualizacao.setText(dentistas.get((tableDentistasAtualizacao.getSelectedRow()*3)+1));
+            salarioDentistaInputAtualizacao.validate();
+            especializacaoDentistaInputAtualizacao.setText(dentistas.get((tableDentistasAtualizacao.getSelectedRow()*3)+2));
+        }
+        else
+        {
+            nomeDentistaInputAtualizacao.setEnabled(false);
+            salarioDentistaInputAtualizacao.setEnabled(false);
+            especializacaoDentistaInputAtualizacao.setEnabled(false);
+                    
+            nomeDentistaInputAtualizacao.setText("");
+            salarioDentistaInputAtualizacao.setText("R$     ,  ");
+            salarioDentistaInputAtualizacao.validate();
+            especializacaoDentistaInputAtualizacao.setText("");            
+        }
+    }
+        
     public GestaoDentistas(){
         
         try{
@@ -68,18 +286,7 @@ public class GestaoDentistas extends JPanel{
         JTabbedPane tabbedPane = new JTabbedPane();
         
         //Criar lista de dentistas.
-        String nomeColunasDentistas[] = {"Nome", "Salário", "Especialização"};
-        
-        String[][] listaDentistas = new String[3][3];
-        listaDentistas[0][0] = "Dentista01";
-        listaDentistas[0][1] = "Dentista02";
-        listaDentistas[0][2] = "Dentista03";
-        listaDentistas[1][0] = "Dentista04";
-        listaDentistas[1][1] = "Dentista05";
-        listaDentistas[1][2] = "Dentista06";
-        listaDentistas[2][0] = "Dentista07";
-        listaDentistas[2][1] = "Dentista08";
-        listaDentistas[2][2] = "Dentista09";
+        dentistas = new ArrayList <String>();
         
         //*******************
         //Painel de cadastro.
@@ -144,6 +351,13 @@ public class GestaoDentistas extends JPanel{
         panelCadastrar.add(cadastrarDentista);
 
         panelCadastrar.add(Box.createRigidArea(new Dimension(0, 50)));
+        
+        cadastrarDentista.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                AdicionarDentista();
+            }
+        });
 
         //**********************
         //Painel de atualizacao.
@@ -201,17 +415,11 @@ public class GestaoDentistas extends JPanel{
         especializacaoDentistaInputAtualizacao.setEnabled(false);
         panelAtualizarLinha3.add(especializacaoDentistaInputAtualizacao);
         
-        JPanel panelAtualizarLinha4 = new JPanel();
+        panelAtualizarLinha4 = new JPanel();
         panelAtualizarLinha4.setLayout(new BoxLayout(panelAtualizarLinha4, BoxLayout.X_AXIS));
         panelAtualizarLinha4.setMaximumSize(new Dimension(400, 20));
         panelAtualizarLinha4.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         
-        JTable tableDentistasAtualizacao = new JTable(listaDentistas, nomeColunasDentistas);
-
-        JScrollPane listDentistasAtualizarScroll = new JScrollPane(tableDentistasAtualizacao);
-        listDentistasAtualizarScroll.setPreferredSize(new Dimension(250, 80));
-        panelAtualizarLinha4.add(listDentistasAtualizarScroll);
-
         panelAtualizar.add(Box.createRigidArea(new Dimension(0, 50)));
         
         panelAtualizar.add(panelAtualizarLinha1);
@@ -224,10 +432,17 @@ public class GestaoDentistas extends JPanel{
         
         panelAtualizar.add(Box.createVerticalGlue());
 
-        JButton AtualizarDentista = new JButton("Atualizar Dentista");
-        panelAtualizar.add(AtualizarDentista);
+        JButton atualizarDentista = new JButton("Atualizar Dentista");
+        panelAtualizar.add(atualizarDentista);
 
         panelAtualizar.add(Box.createRigidArea(new Dimension(0, 50)));
+        
+        atualizarDentista.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                AtualizarDentista();
+            }
+        });
 
         //******************
         //Painel de remocao.
@@ -285,17 +500,11 @@ public class GestaoDentistas extends JPanel{
         especializacaoDentistaInputRemocao.setEnabled(false);
         panelRemoverLinha3.add(especializacaoDentistaInputRemocao);
         
-        JPanel panelRemoverLinha4 = new JPanel();
+        panelRemoverLinha4 = new JPanel();
         panelRemoverLinha4.setLayout(new BoxLayout(panelRemoverLinha4, BoxLayout.X_AXIS));
         panelRemoverLinha4.setMaximumSize(new Dimension(400, 20));
         panelRemoverLinha4.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         
-        JTable tableDentistasRemocao = new JTable(listaDentistas, nomeColunasDentistas);
-
-        JScrollPane listDentistasRemoverScroll = new JScrollPane(tableDentistasRemocao);
-        listDentistasRemoverScroll.setPreferredSize(new Dimension(250, 80));
-        panelRemoverLinha4.add(listDentistasRemoverScroll);
-
         panelRemover.add(Box.createRigidArea(new Dimension(0, 50)));
         
         panelRemover.add(panelRemoverLinha1);
@@ -308,16 +517,53 @@ public class GestaoDentistas extends JPanel{
         
         panelRemover.add(Box.createVerticalGlue());
 
-        JButton RemoverDentista = new JButton("Remover Dentista");
-        panelRemover.add(RemoverDentista);
+        JButton removerDentista = new JButton("Remover Dentista");
+        panelRemover.add(removerDentista);
 
         panelRemover.add(Box.createRigidArea(new Dimension(0, 50)));
+        
+        removerDentista.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                RemoverDentista();
+            }
+        });
+        
+        //********************
+        //Painel de relatorio.
+        //********************
+
+        JPanel panelRelatorio = new JPanel();
+        panelRelatorio.setLayout(new BoxLayout(panelRelatorio, BoxLayout.Y_AXIS));
+        tabbedPane.addTab("Relatorio Dentista", panelRelatorio);
+        
+        panelRelatorio.add(Box.createRigidArea(new Dimension(0, 20)));
+        
+        JButton relatorioPadraoDentista = new JButton("Relatório Padrão dos Dentistas");
+        panelRelatorio.add(relatorioPadraoDentista);
+        
+        relatorioPadraoDentista.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                try {
+                    GerarRelatorioPadrao();
+                } catch (IOException ex) {
+                    Logger.getLogger(GestaoDentistas.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
 
         //**********************
         //Adicionar tabbed pane.
         //**********************
         
         add(tabbedPane);
+        
+        //*****************************
+        //Atualizar lista de dentistas.
+        //*****************************
+        
+        AtualizarListaDentistas();
     }
     
 }
