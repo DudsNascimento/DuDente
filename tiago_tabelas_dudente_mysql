@@ -1,0 +1,358 @@
+-- MySQL dump 10.13  Distrib 5.5.40, for debian-linux-gnu (x86_64)
+--
+-- Host: localhost    Database: DUDENTE
+-- ------------------------------------------------------
+-- Server version	5.5.40-0ubuntu0.12.04.1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `aparelho`
+--
+
+DROP TABLE IF EXISTS `aparelho`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `aparelho` (
+  `nome` varchar(100) DEFAULT NULL,
+  `ultima_manutencao` date DEFAULT NULL,
+  `id_aparelho` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id_aparelho`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `aparelho`
+--
+
+LOCK TABLES `aparelho` WRITE;
+/*!40000 ALTER TABLE `aparelho` DISABLE KEYS */;
+/*!40000 ALTER TABLE `aparelho` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cirurgia`
+--
+
+DROP TABLE IF EXISTS `cirurgia`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cirurgia` (
+  `data` date DEFAULT NULL,
+  `descricao` varchar(200) DEFAULT NULL,
+  `observacao` varchar(200) DEFAULT NULL,
+  `tipo` varchar(200) DEFAULT NULL,
+  `id_cirurgia` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id_cirurgia`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cirurgia`
+--
+
+LOCK TABLES `cirurgia` WRITE;
+/*!40000 ALTER TABLE `cirurgia` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cirurgia` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `clinica`
+--
+
+DROP TABLE IF EXISTS `clinica`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `clinica` (
+  `nome` varchar(100) NOT NULL,
+  `endereco` varchar(200) NOT NULL,
+  `id_clinica` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id_clinica`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `clinica`
+--
+
+LOCK TABLES `clinica` WRITE;
+/*!40000 ALTER TABLE `clinica` DISABLE KEYS */;
+/*!40000 ALTER TABLE `clinica` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `compra_aparelho`
+--
+
+DROP TABLE IF EXISTS `compra_aparelho`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `compra_aparelho` (
+  `data` date DEFAULT NULL,
+  `valor` float DEFAULT NULL,
+  `id_compra` int(11) NOT NULL AUTO_INCREMENT,
+  `id_aparelho` int(11) NOT NULL,
+  PRIMARY KEY (`id_compra`),
+  KEY `id_aparelho` (`id_aparelho`),
+  CONSTRAINT `compra_aparelho_ibfk_1` FOREIGN KEY (`id_aparelho`) REFERENCES `aparelho` (`id_aparelho`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `compra_aparelho`
+--
+
+LOCK TABLES `compra_aparelho` WRITE;
+/*!40000 ALTER TABLE `compra_aparelho` DISABLE KEYS */;
+/*!40000 ALTER TABLE `compra_aparelho` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `compra_medicamento`
+--
+
+DROP TABLE IF EXISTS `compra_medicamento`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `compra_medicamento` (
+  `data` date DEFAULT NULL,
+  `valor` float DEFAULT NULL,
+  `id_compra` int(11) NOT NULL AUTO_INCREMENT,
+  `id_medicamento` int(11) NOT NULL,
+  PRIMARY KEY (`id_compra`),
+  KEY `id_medicamento` (`id_medicamento`),
+  CONSTRAINT `compra_medicamento_ibfk_1` FOREIGN KEY (`id_medicamento`) REFERENCES `medicamento` (`id_medicamento`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `compra_medicamento`
+--
+
+LOCK TABLES `compra_medicamento` WRITE;
+/*!40000 ALTER TABLE `compra_medicamento` DISABLE KEYS */;
+/*!40000 ALTER TABLE `compra_medicamento` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `consulta`
+--
+
+DROP TABLE IF EXISTS `consulta`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `consulta` (
+  `data` date DEFAULT NULL,
+  `descricao` varchar(200) DEFAULT NULL,
+  `observacao` varchar(200) DEFAULT NULL,
+  `diagnostico` varchar(200) DEFAULT NULL,
+  `id_consulta` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id_consulta`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `consulta`
+--
+
+LOCK TABLES `consulta` WRITE;
+/*!40000 ALTER TABLE `consulta` DISABLE KEYS */;
+/*!40000 ALTER TABLE `consulta` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `dentista`
+--
+
+DROP TABLE IF EXISTS `dentista`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `dentista` (
+  `especializacao` varchar(20) NOT NULL,
+  `nome` varchar(100) NOT NULL,
+  `salario` float DEFAULT NULL,
+  `id_dentista` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id_dentista`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `dentista`
+--
+
+LOCK TABLES `dentista` WRITE;
+/*!40000 ALTER TABLE `dentista` DISABLE KEYS */;
+/*!40000 ALTER TABLE `dentista` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `exame`
+--
+
+DROP TABLE IF EXISTS `exame`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `exame` (
+  `data` date DEFAULT NULL,
+  `descricao` varchar(200) DEFAULT NULL,
+  `observacao` varchar(200) DEFAULT NULL,
+  `resultado` varchar(200) DEFAULT NULL,
+  `id_exame` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id_exame`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `exame`
+--
+
+LOCK TABLES `exame` WRITE;
+/*!40000 ALTER TABLE `exame` DISABLE KEYS */;
+/*!40000 ALTER TABLE `exame` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `medicamento`
+--
+
+DROP TABLE IF EXISTS `medicamento`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `medicamento` (
+  `nome` varchar(100) DEFAULT NULL,
+  `validade` date DEFAULT NULL,
+  `id_medicamento` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id_medicamento`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `medicamento`
+--
+
+LOCK TABLES `medicamento` WRITE;
+/*!40000 ALTER TABLE `medicamento` DISABLE KEYS */;
+/*!40000 ALTER TABLE `medicamento` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ortodontico`
+--
+
+DROP TABLE IF EXISTS `ortodontico`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ortodontico` (
+  `data` date DEFAULT NULL,
+  `descricao` varchar(200) DEFAULT NULL,
+  `observacao` varchar(200) DEFAULT NULL,
+  `tipo` varchar(200) DEFAULT NULL,
+  `id_ortodontico` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id_ortodontico`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ortodontico`
+--
+
+LOCK TABLES `ortodontico` WRITE;
+/*!40000 ALTER TABLE `ortodontico` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ortodontico` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `paciente`
+--
+
+DROP TABLE IF EXISTS `paciente`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `paciente` (
+  `nome` varchar(100) NOT NULL,
+  `idade` int(11) DEFAULT NULL,
+  `id_plano` int(11) NOT NULL,
+  `id_paciente` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id_paciente`),
+  KEY `id_plano` (`id_plano`),
+  CONSTRAINT `paciente_ibfk_1` FOREIGN KEY (`id_plano`) REFERENCES `plano` (`id_plano`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `paciente`
+--
+
+LOCK TABLES `paciente` WRITE;
+/*!40000 ALTER TABLE `paciente` DISABLE KEYS */;
+/*!40000 ALTER TABLE `paciente` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `plano`
+--
+
+DROP TABLE IF EXISTS `plano`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `plano` (
+  `nome` varchar(100) NOT NULL,
+  `validade` date DEFAULT NULL,
+  `id_plano` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id_plano`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `plano`
+--
+
+LOCK TABLES `plano` WRITE;
+/*!40000 ALTER TABLE `plano` DISABLE KEYS */;
+/*!40000 ALTER TABLE `plano` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `secretaria`
+--
+
+DROP TABLE IF EXISTS `secretaria`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `secretaria` (
+  `bonificacao` float DEFAULT NULL,
+  `nome` varchar(100) NOT NULL,
+  `salario` float DEFAULT NULL,
+  `id_secretaria` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id_secretaria`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `secretaria`
+--
+
+LOCK TABLES `secretaria` WRITE;
+/*!40000 ALTER TABLE `secretaria` DISABLE KEYS */;
+/*!40000 ALTER TABLE `secretaria` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2014-11-22 21:06:21
