@@ -74,7 +74,7 @@ public class Cadastro {
 
         
         janela.pack();
-        janela.setResizable(false);
+        janela.setResizable(true);
         janela.setSize(screenSize.width, screenSize.height - taskBarSize);
 
         

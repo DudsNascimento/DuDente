@@ -247,7 +247,7 @@ public class botaoCadastrar extends javax.swing.JFrame {
         Object[] v = {"Selecione Aqui", "Secretaria", "Limpeza", "Contador", "Outro"};
 
         DefaultComboBoxModel model = new DefaultComboBoxModel(v);
-        jComboBox2.setModel(new JComboBox<>(model).getModel());
+        jComboBox2.setModel(new JComboBox(model).getModel());
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
@@ -258,7 +258,7 @@ public class botaoCadastrar extends javax.swing.JFrame {
         Object[] v = {"Selecione Aqui", "Radiologia", "Dentística", "Endodontia", "Periodontia", "Cirurgia Bucomaxilofacial", "Próteses", "Odontopediatria", "Ortodontia ", "Outro"};
 
         DefaultComboBoxModel model = new DefaultComboBoxModel(v);
-        jComboBox2.setModel(new JComboBox<>(model).getModel());
+        jComboBox2.setModel(new JComboBox(model).getModel());
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     /**
