@@ -16,7 +16,24 @@ public class SecretariaJDBC extends SQLConnection{
     public SecretariaJDBC(){
     }
     
-    ArrayList <SecretariaTable> ListarSecretarias() throws SQLException{
+    public boolean ProcurarSecretaria(SecretariaTable secretariaTable) throws SQLException{
+
+        if(this.ExecutarQuery("SELECT * FROM secretaria WHERE id_secretaria = "+secretariaTable.GetIdSecretaria()+";")){
+        
+            if(this.resultSet.next()){
+
+                secretariaTable.SetBonificacao(this.resultSet.getFloat("bonificacao"));
+                secretariaTable.SetNome(this.resultSet.getString("nome"));
+                secretariaTable.SetSalario(this.resultSet.getFloat("salario"));
+                secretariaTable.SetIdSecretaria(this.resultSet.getInt("id_secretaria"));
+
+            }    
+            return true;
+        }
+        return false;
+    }
+
+    public ArrayList <SecretariaTable> ListarSecretarias() throws SQLException{
         
         if(this.ExecutarQuery("SELECT * FROM secretaria;")){
         
@@ -36,18 +53,18 @@ public class SecretariaJDBC extends SQLConnection{
         return null;
     }
     
-    boolean AdicionarSecretaria(SecretariaTable secretariaTable) throws SQLException{
+    public boolean AdicionarSecretaria(SecretariaTable secretariaTable) throws SQLException{
         
         return this.ExecutarUpdate("INSERT INTO secretaria (bonificacao, nome, salario) VALUES (\""+secretariaTable.GetBonificacao()+"\", \""+secretariaTable.GetNome()+"\", \""+secretariaTable.GetSalario()+"\");");
     }
     
-    boolean RemoverSecretaria(SecretariaTable secretariaTable) throws SQLException{
+    public boolean RemoverSecretaria(SecretariaTable secretariaTable) throws SQLException{
         
         return this.ExecutarUpdate("DELETE FROM secretaria WHERE id_secretaria = \""+secretariaTable.GetIdSecretaria()+"\";");
     }
     
-    boolean AtualizarSecretaria(SecretariaTable secretariaTable) throws SQLException{
+    public boolean AtualizarSecretaria(SecretariaTable secretariaTable) throws SQLException{
         
-        return this.ExecutarUpdate("UPDATE secretaria SET bonificacao=\""+secretariaTable.GetBonificacao()+"\", nome=\""+secretariaTable.GetNome()+"\", salario=\""+secretariaTable.GetSalario()+"\", WHERE id_secretaria = \""+secretariaTable.GetIdSecretaria()+"\";");
+        return this.ExecutarUpdate("UPDATE secretaria SET bonificacao=\""+secretariaTable.GetBonificacao()+"\", nome=\""+secretariaTable.GetNome()+"\", salario=\""+secretariaTable.GetSalario()+"\" WHERE id_secretaria = \""+secretariaTable.GetIdSecretaria()+"\";");
     }
 }

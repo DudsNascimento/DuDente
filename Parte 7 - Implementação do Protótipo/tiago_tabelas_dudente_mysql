@@ -50,9 +50,15 @@ CREATE TABLE `cirurgia` (
   `data` date DEFAULT NULL,
   `descricao` varchar(200) DEFAULT NULL,
   `observacao` varchar(200) DEFAULT NULL,
-  `tipo` varchar(200) DEFAULT NULL,
+  `tipo` varchar(100) NOT NULL,
   `id_cirurgia` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id_cirurgia`)
+  `id_Paciente` int(11) NOT NULL,
+  `id_dentista` int(11) NOT NULL,
+  PRIMARY KEY (`id_cirurgia`),
+  KEY `id_dentista` (`id_dentista`),
+  KEY `id_Paciente` (`id_Paciente`),
+  CONSTRAINT `cirurgia_ibfk_1` FOREIGN KEY (`id_dentista`) REFERENCES `dentista` (`id_dentista`),
+  CONSTRAINT `cirurgia_ibfk_2` FOREIGN KEY (`id_Paciente`) REFERENCES `paciente` (`id_paciente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -156,7 +162,13 @@ CREATE TABLE `consulta` (
   `observacao` varchar(200) DEFAULT NULL,
   `diagnostico` varchar(200) DEFAULT NULL,
   `id_consulta` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id_consulta`)
+  `id_dentista` int(11) NOT NULL,
+  `id_paciente` int(11) NOT NULL,
+  PRIMARY KEY (`id_consulta`),
+  KEY `id_dentista` (`id_dentista`),
+  KEY `id_paciente` (`id_paciente`),
+  CONSTRAINT `id_dentista` FOREIGN KEY (`id_dentista`) REFERENCES `dentista` (`id_dentista`),
+  CONSTRAINT `id_paciente` FOREIGN KEY (`id_paciente`) REFERENCES `paciente` (`id_paciente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -182,7 +194,7 @@ CREATE TABLE `dentista` (
   `salario` float DEFAULT NULL,
   `id_dentista` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id_dentista`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -191,6 +203,7 @@ CREATE TABLE `dentista` (
 
 LOCK TABLES `dentista` WRITE;
 /*!40000 ALTER TABLE `dentista` DISABLE KEYS */;
+INSERT INTO `dentista` VALUES ('Ortodontia','Cebola',1200,1);
 /*!40000 ALTER TABLE `dentista` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -205,9 +218,15 @@ CREATE TABLE `exame` (
   `data` date DEFAULT NULL,
   `descricao` varchar(200) DEFAULT NULL,
   `observacao` varchar(200) DEFAULT NULL,
-  `resultado` varchar(200) DEFAULT NULL,
+  `resultado` varchar(100) NOT NULL,
   `id_exame` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id_exame`)
+  `id_Paciente` int(11) NOT NULL,
+  `id_dentista` int(11) NOT NULL,
+  PRIMARY KEY (`id_exame`),
+  KEY `id_dentista` (`id_dentista`),
+  KEY `id_Paciente` (`id_Paciente`),
+  CONSTRAINT `exame_ibfk_1` FOREIGN KEY (`id_dentista`) REFERENCES `dentista` (`id_dentista`),
+  CONSTRAINT `exame_ibfk_2` FOREIGN KEY (`id_Paciente`) REFERENCES `paciente` (`id_paciente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -255,9 +274,15 @@ CREATE TABLE `ortodontico` (
   `data` date DEFAULT NULL,
   `descricao` varchar(200) DEFAULT NULL,
   `observacao` varchar(200) DEFAULT NULL,
-  `tipo` varchar(200) DEFAULT NULL,
+  `tipo` varchar(100) NOT NULL,
   `id_ortodontico` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id_ortodontico`)
+  `id_Paciente` int(11) NOT NULL,
+  `id_dentista` int(11) NOT NULL,
+  PRIMARY KEY (`id_ortodontico`),
+  KEY `id_dentista` (`id_dentista`),
+  KEY `id_Paciente` (`id_Paciente`),
+  CONSTRAINT `ortodontico_ibfk_1` FOREIGN KEY (`id_dentista`) REFERENCES `dentista` (`id_dentista`),
+  CONSTRAINT `ortodontico_ibfk_2` FOREIGN KEY (`id_Paciente`) REFERENCES `paciente` (`id_paciente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -355,4 +380,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-22 21:06:21
+-- Dump completed on 2014-11-26 16:26:03

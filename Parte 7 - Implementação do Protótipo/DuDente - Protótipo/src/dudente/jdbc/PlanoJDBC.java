@@ -16,7 +16,23 @@ public class PlanoJDBC extends SQLConnection{
     public PlanoJDBC(){
     }
     
-    ArrayList <PlanoTable> ListarPlanos() throws SQLException{
+    public boolean ProcurarPlano(PlanoTable planoTable) throws SQLException{
+
+        if(this.ExecutarQuery("SELECT * FROM plano WHERE id_plano = "+planoTable.GetIdPlano()+";")){
+        
+            if(this.resultSet.next()){
+
+                planoTable.SetNome(this.resultSet.getString("nome"));
+                planoTable.SetValidade(this.resultSet.getDate("validade"));
+                planoTable.SetIdPlano(this.resultSet.getInt("id_plano"));
+
+            }    
+            return true;
+        }
+        return false;
+    }
+    
+    public ArrayList <PlanoTable> ListarPlanos() throws SQLException{
         
         if(this.ExecutarQuery("SELECT * FROM plano;")){
         
@@ -35,18 +51,18 @@ public class PlanoJDBC extends SQLConnection{
         return null;
     }
     
-    boolean AdicionarPlano(PlanoTable planoTable) throws SQLException{
+    public boolean AdicionarPlano(PlanoTable planoTable) throws SQLException{
         
         return this.ExecutarUpdate("INSERT INTO plano (nome, validade) VALUES (\""+planoTable.GetNome()+"\", \""+planoTable.GetValidade()+"\");");
     }
     
-    boolean RemoverPlano(PlanoTable planoTable) throws SQLException{
+    public boolean RemoverPlano(PlanoTable planoTable) throws SQLException{
         
         return this.ExecutarUpdate("DELETE FROM plano WHERE id_plano = \""+planoTable.GetIdPlano()+"\";");
     }
     
-    boolean AtualizarPlano(PlanoTable planoTable) throws SQLException{
+    public boolean AtualizarPlano(PlanoTable planoTable) throws SQLException{
         
-        return this.ExecutarUpdate("UPDATE plano SET nome=\""+planoTable.GetNome()+"\", validade=\""+planoTable.GetValidade()+"\", WHERE id_plano = \""+planoTable.GetIdPlano()+"\";");
+        return this.ExecutarUpdate("UPDATE plano SET nome=\""+planoTable.GetNome()+"\", validade=\""+planoTable.GetValidade()+"\" WHERE id_plano = \""+planoTable.GetIdPlano()+"\";");
     }
 }

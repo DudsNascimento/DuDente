@@ -16,37 +16,54 @@ public class PacienteJDBC extends SQLConnection{
     public PacienteJDBC(){
     }
     
-    ArrayList <PacienteTable> ListarPacientes() throws SQLException{
+    public boolean ProcurarPaciente(PacienteTable pacienteTable) throws SQLException{
+
+        if(this.ExecutarQuery("SELECT * FROM paciente WHERE id_paciente = "+pacienteTable.GetIdPaciente()+";")){
+        
+            if(this.resultSet.next()){
+
+                pacienteTable.SetNome(this.resultSet.getString("nome"));
+                pacienteTable.SetIdade(this.resultSet.getInt("idade"));
+                pacienteTable.SetIdPlano(this.resultSet.getInt("id_plano"));
+                pacienteTable.SetIdPaciente(this.resultSet.getInt("id_paciente"));
+
+            }    
+            return true;
+        }
+        return false;
+    }
+    
+    public ArrayList <PacienteTable> ListarPacientes() throws SQLException{
         
         if(this.ExecutarQuery("SELECT * FROM paciente;")){
         
             ArrayList <PacienteTable> listaPacientes = new ArrayList <PacienteTable>();
             while(this.resultSet.next()){
 
-                PacienteTable pacienteIndex = new PacienteTable(); 
-                pacienteIndex.SetNome(this.resultSet.getString("nome"));
-                pacienteIndex.SetIdade(this.resultSet.getInt("idade"));
-                pacienteIndex.SetIdPlano(this.resultSet.getInt("id_plano"));
-                pacienteIndex.SetIdPaciente(this.resultSet.getInt("id_paciente"));
+                PacienteTable pacienteTable = new PacienteTable(); 
+                pacienteTable.SetNome(this.resultSet.getString("nome"));
+                pacienteTable.SetIdade(this.resultSet.getInt("idade"));
+                pacienteTable.SetIdPlano(this.resultSet.getInt("id_plano"));
+                pacienteTable.SetIdPaciente(this.resultSet.getInt("id_paciente"));
 
-                listaPacientes.add(pacienteIndex);
+                listaPacientes.add(pacienteTable);
             }    
             return listaPacientes;
         }
         return null;
     }
     
-    boolean AdicionarPaciente(PacienteTable pacienteTable) throws SQLException{
+    public boolean AdicionarPaciente(PacienteTable pacienteTable) throws SQLException{
         
         return this.ExecutarUpdate("INSERT INTO paciente (nome, idade, id_plano) VALUES (\""+pacienteTable.GetNome()+"\", \""+pacienteTable.GetIdade()+"\", \""+pacienteTable.GetIdPlano()+"\");");
     }
     
-    boolean RemoverPaciente(PacienteTable pacienteTable) throws SQLException{
+    public boolean RemoverPaciente(PacienteTable pacienteTable) throws SQLException{
         
         return this.ExecutarUpdate("DELETE FROM paciente WHERE id_paciente = \""+pacienteTable.GetIdPaciente()+"\";");
     }
     
-    boolean AtualizarPaciente(PacienteTable pacienteTable) throws SQLException{
+    public boolean AtualizarPaciente(PacienteTable pacienteTable) throws SQLException{
         
         return this.ExecutarUpdate("UPDATE paciente SET nome=\""+pacienteTable.GetNome()+"\", idade=\""+pacienteTable.GetIdade()+"\", id_plano=\""+pacienteTable.GetIdPlano()+"\" WHERE id_paciente = \""+pacienteTable.GetIdPaciente()+"\";");
     }

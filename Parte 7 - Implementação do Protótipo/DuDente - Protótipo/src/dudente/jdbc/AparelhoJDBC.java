@@ -16,7 +16,22 @@ public class AparelhoJDBC extends SQLConnection{
     public AparelhoJDBC(){
     }
     
-    ArrayList <AparelhoTable> ListarAparelhos() throws SQLException{
+    public boolean ProcurarAparelho(AparelhoTable aparelhoTable) throws SQLException{
+
+        if(this.ExecutarQuery("SELECT * FROM aparelho WHERE id_aparelho = "+aparelhoTable.GetIdAparelho()+";")){
+        
+            if(this.resultSet.next()){
+
+                aparelhoTable.SetNome(this.resultSet.getString("nome"));
+                aparelhoTable.SetUltimaManutencao(this.resultSet.getDate("ultimaManutencao"));
+                aparelhoTable.SetIdAparelho(this.resultSet.getInt("id_aparelho"));
+            }    
+            return true;
+        }
+        return false;
+    }
+    
+    public ArrayList <AparelhoTable> ListarAparelhos() throws SQLException{
         
         if(this.ExecutarQuery("SELECT * FROM aparelho;")){
         
@@ -35,18 +50,18 @@ public class AparelhoJDBC extends SQLConnection{
         return null;
     }
     
-    boolean AdicionarAparelho(AparelhoTable aparelhoTable) throws SQLException{
+    public boolean AdicionarAparelho(AparelhoTable aparelhoTable) throws SQLException{
         
         return this.ExecutarUpdate("INSERT INTO aparelho (nome, ultimaManutencao) VALUES (\""+aparelhoTable.GetNome()+"\", \""+aparelhoTable.GetUltimaManutencao()+"\");");
     }
     
-    boolean RemoverAparelho(AparelhoTable aparelhoTable) throws SQLException{
+    public boolean RemoverAparelho(AparelhoTable aparelhoTable) throws SQLException{
         
         return this.ExecutarUpdate("DELETE FROM aparelho WHERE id_aparelho = \""+aparelhoTable.GetIdAparelho()+"\";");
     }
     
-    boolean AtualizarAparelho(AparelhoTable aparelhoTable) throws SQLException{
+    public boolean AtualizarAparelho(AparelhoTable aparelhoTable) throws SQLException{
         
-        return this.ExecutarUpdate("UPDATE aparelho SET nome=\""+aparelhoTable.GetNome()+"\", ultimaManutencao=\""+aparelhoTable.GetUltimaManutencao()+"\", WHERE id_aparelho = \""+aparelhoTable.GetIdAparelho()+"\";");
+        return this.ExecutarUpdate("UPDATE aparelho SET nome=\""+aparelhoTable.GetNome()+"\", ultimaManutencao=\""+aparelhoTable.GetUltimaManutencao()+"\" WHERE id_aparelho = \""+aparelhoTable.GetIdAparelho()+"\";");
     }
 }

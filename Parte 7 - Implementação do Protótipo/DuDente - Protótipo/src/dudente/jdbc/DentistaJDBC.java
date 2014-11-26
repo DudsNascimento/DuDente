@@ -16,38 +16,55 @@ public class DentistaJDBC extends SQLConnection{
     public DentistaJDBC(){
     }
     
-    ArrayList <DentistaTable> ListarDentistas() throws SQLException{
+    public boolean ProcurarDentista(DentistaTable dentistaTable) throws SQLException{
+
+        if(this.ExecutarQuery("SELECT * FROM dentista WHERE id_dentista = "+dentistaTable.GetIdDentista()+";")){
+        
+            if(this.resultSet.next()){
+
+                dentistaTable.SetEspecializacao(this.resultSet.getString("especializacao"));
+                dentistaTable.SetNome(this.resultSet.getString("nome"));
+                dentistaTable.SetSalario(this.resultSet.getFloat("salario"));
+                dentistaTable.SetIdDentista(this.resultSet.getInt("id_dentista"));
+
+            }    
+            return true;
+        }
+        return false;
+    }
+
+    public ArrayList <DentistaTable> ListarDentistas() throws SQLException{
         
         if(this.ExecutarQuery("SELECT * FROM dentista;")){
         
             ArrayList <DentistaTable> listaDentistas = new ArrayList <DentistaTable>();
             while(this.resultSet.next()){
 
-                DentistaTable dentistaIndex = new DentistaTable(); 
-                dentistaIndex.SetEspecializacao(this.resultSet.getString("especializacao"));
-                dentistaIndex.SetNome(this.resultSet.getString("nome"));
-                dentistaIndex.SetSalario(this.resultSet.getFloat("salario"));
-                dentistaIndex.SetIdDentista(this.resultSet.getInt("id_dentista"));
+                DentistaTable dentistaTable = new DentistaTable(); 
+                dentistaTable.SetEspecializacao(this.resultSet.getString("especializacao"));
+                dentistaTable.SetNome(this.resultSet.getString("nome"));
+                dentistaTable.SetSalario(this.resultSet.getFloat("salario"));
+                dentistaTable.SetIdDentista(this.resultSet.getInt("id_dentista"));
 
-                listaDentistas.add(dentistaIndex);
+                listaDentistas.add(dentistaTable);
             }    
             return listaDentistas;
         }
         return null;
     }
     
-    boolean AdicionarDentista(DentistaTable dentistaTable) throws SQLException{
+    public boolean AdicionarDentista(DentistaTable dentistaTable) throws SQLException{
         
         return this.ExecutarUpdate("INSERT INTO dentista (especializacao, nome, salario) VALUES (\""+dentistaTable.GetEspecializacao()+"\", \""+dentistaTable.GetNome()+"\", \""+dentistaTable.GetSalario()+"\");");
     }
     
-    boolean RemoverDentista(DentistaTable dentistaTable) throws SQLException{
+    public boolean RemoverDentista(DentistaTable dentistaTable) throws SQLException{
         
         return this.ExecutarUpdate("DELETE FROM dentista WHERE id_dentista = \""+dentistaTable.GetIdDentista()+"\";");
     }
     
-    boolean AtualizarDentista(DentistaTable dentistaTable) throws SQLException{
+    public boolean AtualizarDentista(DentistaTable dentistaTable) throws SQLException{
         
-        return this.ExecutarUpdate("UPDATE dentista SET especializacao=\""+dentistaTable.GetEspecializacao()+"\", nome=\""+dentistaTable.GetNome()+"\", salario=\""+dentistaTable.GetSalario()+"\", WHERE id_dentista = \""+dentistaTable.GetIdDentista()+"\";");
+        return this.ExecutarUpdate("UPDATE dentista SET especializacao=\""+dentistaTable.GetEspecializacao()+"\", nome=\""+dentistaTable.GetNome()+"\", salario=\""+dentistaTable.GetSalario()+"\" WHERE id_dentista = \""+dentistaTable.GetIdDentista()+"\";");
     }
 }

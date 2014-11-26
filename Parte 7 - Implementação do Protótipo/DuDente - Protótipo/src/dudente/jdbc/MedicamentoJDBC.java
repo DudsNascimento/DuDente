@@ -16,7 +16,23 @@ public class MedicamentoJDBC extends SQLConnection{
     public MedicamentoJDBC(){
     }
     
-    ArrayList <MedicamentoTable> ListarMedicamentos() throws SQLException{
+    public boolean ProcurarMedicamento(MedicamentoTable medicamentoTable) throws SQLException{
+
+        if(this.ExecutarQuery("SELECT * FROM medicamento WHERE id_medicamento = "+medicamentoTable.GetIdMedicamento()+";")){
+        
+            if(this.resultSet.next()){
+
+                medicamentoTable.SetNome(this.resultSet.getString("nome"));
+                medicamentoTable.SetValidade(this.resultSet.getDate("validade"));
+                medicamentoTable.SetIdMedicamento(this.resultSet.getInt("id_medicamento"));
+
+            }    
+            return true;
+        }
+        return false;
+    }
+    
+    public ArrayList <MedicamentoTable> ListarMedicamentos() throws SQLException{
         
         if(this.ExecutarQuery("SELECT * FROM medicamento;")){
         
@@ -35,18 +51,18 @@ public class MedicamentoJDBC extends SQLConnection{
         return null;
     }
     
-    boolean AdicionarMedicamento(MedicamentoTable medicamentoTable) throws SQLException{
+    public boolean AdicionarMedicamento(MedicamentoTable medicamentoTable) throws SQLException{
         
         return this.ExecutarUpdate("INSERT INTO medicamento (nome, validade) VALUES (\""+medicamentoTable.GetNome()+"\", \""+medicamentoTable.GetValidade()+"\");");
     }
     
-    boolean RemoverMedicamento(MedicamentoTable medicamentoTable) throws SQLException{
+    public boolean RemoverMedicamento(MedicamentoTable medicamentoTable) throws SQLException{
         
         return this.ExecutarUpdate("DELETE FROM medicamento WHERE id_medicamento = \""+medicamentoTable.GetIdMedicamento()+"\";");
     }
     
-    boolean AtualizarMedicamento(MedicamentoTable medicamentoTable) throws SQLException{
+    public boolean AtualizarMedicamento(MedicamentoTable medicamentoTable) throws SQLException{
         
-        return this.ExecutarUpdate("UPDATE medicamento SET nome=\""+medicamentoTable.GetNome()+"\", validade=\""+medicamentoTable.GetValidade()+"\", WHERE id_medicamento = \""+medicamentoTable.GetIdMedicamento()+"\";");
+        return this.ExecutarUpdate("UPDATE medicamento SET nome=\""+medicamentoTable.GetNome()+"\", validade=\""+medicamentoTable.GetValidade()+"\" WHERE id_medicamento = \""+medicamentoTable.GetIdMedicamento()+"\";");
     }
 }
