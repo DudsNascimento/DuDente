@@ -15,6 +15,8 @@ public class Clinica {
 
     ArrayList<Funcionario> dentistas;
     ArrayList<Funcionario> empregados;
+    ArrayList<Medicamento> medicamentos;
+    ArrayList<Aparelho> aparelhos;
     static Image icone;
 
 

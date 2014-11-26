@@ -22,6 +22,8 @@ import javax.swing.JTextField;
 public class DuDenteUI extends javax.swing.JPanel {
     private final ArrayList<Funcionario> empregados;
     private final ArrayList<Funcionario> dentistas;
+    private final ArrayList<Medicamento> medicamentos;
+    private final ArrayList<Aparelho> aparelhos;
 
     
     
@@ -90,9 +92,11 @@ public class DuDenteUI extends javax.swing.JPanel {
     /**
      * Creates new form DuDenteUI
      */
-    public DuDenteUI( ArrayList<Funcionario> dentistas, ArrayList<Funcionario> empregados) {
+    public DuDenteUI( ArrayList<Funcionario> dentistas, ArrayList<Funcionario> empregados, ArrayList<Medicamento> medicamentos, ArrayList<Aparelho> aparelhos) {
         this.empregados = empregados;
         this.dentistas = dentistas;
+        this.medicamentos = medicamentos;
+        this.aparelhos = aparelhos;
         initComponents();
     }
 
@@ -110,6 +114,11 @@ public class DuDenteUI extends javax.swing.JPanel {
         jTable1 = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        jTabbedPane2 = new javax.swing.JTabbedPane();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable4 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -172,11 +181,45 @@ public class DuDenteUI extends javax.swing.JPanel {
             }
         });
         jScrollPane2.setViewportView(jTable2);
-        jTable2.getColumnModel().getColumn(0).setResizable(false);
-        jTable2.getColumnModel().getColumn(1).setResizable(false);
-        jTable2.getColumnModel().getColumn(2).setResizable(false);
+        if (jTable2.getColumnModel().getColumnCount() > 0) {
+            jTable2.getColumnModel().getColumn(0).setResizable(false);
+            jTable2.getColumnModel().getColumn(1).setResizable(false);
+            jTable2.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         jTabbedPane1.addTab("Empregados", jScrollPane2);
+
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable3);
+
+        jTabbedPane2.addTab("Medicamentos", jScrollPane3);
+
+        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane4.setViewportView(jTable4);
+
+        jTabbedPane2.addTab("Aparelhos", jScrollPane4);
+
+        jTabbedPane1.addTab("Produtos", jTabbedPane2);
 
         jButton1.setText("Cadastrar");
         jButton1.setMaximumSize(new java.awt.Dimension(81, 25));
@@ -259,7 +302,7 @@ public class DuDenteUI extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 813, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -279,6 +322,8 @@ public class DuDenteUI extends javax.swing.JPanel {
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(39, 39, 39))
         );
+
+        jTabbedPane1.getAccessibleContext().setAccessibleDescription("");
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -308,8 +353,13 @@ public class DuDenteUI extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
+    private javax.swing.JTable jTable4;
     // End of variables declaration//GEN-END:variables
 }
