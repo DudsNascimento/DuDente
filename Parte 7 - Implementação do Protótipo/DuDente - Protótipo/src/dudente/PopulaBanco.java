@@ -55,18 +55,18 @@ public class PopulaBanco {
         SecretariaJDBC secretariaJDBC = new SecretariaJDBC();
         try {
             populaAparelho(aparelhoJDBC);
-            populaCirurgia(cirurgiaJDBC);
             populaClinica(clinicaJDBC);
+            populaPaciente(pacienteJDBC);
+            populaDentista(dentistaJDBC);
+            populaMedicamento(medicamentoJDBC);
             populaCompraAparelho(compraAparelhoJDBC);
             populaCompraMedicamento(compraMedicamentoJDBC);
             populaConsultaJDBC(consultaJDBC);
-            populaDentista(dentistaJDBC);
             populaExame(exameJDBC);
-            populaMedicamento(medicamentoJDBC);
-            populaOrtodontico(ortodonticoJDBC);
-            populaPaciente(pacienteJDBC);
             populaPlano(planoJDBC);
             populaSecretaria(secretariaJDBC);
+            populaOrtodontico(ortodonticoJDBC);
+            populaCirurgia(cirurgiaJDBC);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(PopulaBanco.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
