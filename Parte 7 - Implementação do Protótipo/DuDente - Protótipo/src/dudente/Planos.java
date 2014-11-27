@@ -24,4 +24,22 @@ public Planos(){
         
 }
 
+    void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    void setData(Date data) {
+        this.data = data;
+    }
+
+    
+    String getNome(){
+        return this.nome;
+    }
+
+    Date getCargo(){
+        return this.data;
+    }
+
+
 }
