@@ -4,10 +4,16 @@
  */
 package dudente;
 
+import dudente.jdbc.DentistaJDBC;
+import dudente.jdbc.MedicamentoJDBC;
+import dudente.jdbc.MedicamentoTable;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -38,7 +44,7 @@ public class ProdutosUI extends javax.swing.JPanel {
         private JButton buttonOk;
 
         // --> construtor da classe  
-        public Swing1() {
+        public Swing1() throws ClassNotFoundException, SQLException {
             // --> muda o titulo e o leiaute  
             setTitle("Cadastro");
             setLayout(new FlowLayout());
@@ -73,8 +79,18 @@ public class ProdutosUI extends javax.swing.JPanel {
             pack();
             setLocationRelativeTo(null);
             setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            
+            
+            //-> Buscar medicamentos no Banco de Dados
+            MedicamentoJDBC medicamentosJDBC = new MedicamentoJDBC();        
+            medicamentosJDBC.IniciarConexao("jdbc:mysql://localhost/DUDENTE", "guest", "122333");            
+            ArrayList<MedicamentoTable> medicamentos = medicamentosJDBC.ListarMedicamentos();           
+            
+            
             // --> mostra a janela  
             setVisible(true);
+            
+            
 
         }
     }
@@ -332,7 +348,13 @@ public class ProdutosUI extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Swing1 s = new Swing1();
+        try {
+            Swing1 s = new Swing1();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ProdutosUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutosUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTable2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTable2FocusGained
