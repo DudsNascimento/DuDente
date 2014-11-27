@@ -22,6 +22,7 @@ public class Clinica {
 
     public Clinica() {
         
+        
         icone = new ImageIcon("./resources/tooth3.png").getImage();
         ParserXML parser = new ParserXML();
         
@@ -29,6 +30,8 @@ public class Clinica {
         empregados = parser.parse("empregado");
         
         Cadastro cadastro = new Cadastro(dentistas, empregados);
+        
+       
 
 //        DuDenteUI ui = new DuDenteUI(dentistas, empregados);
 //
